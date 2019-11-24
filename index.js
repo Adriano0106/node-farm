@@ -50,11 +50,11 @@ const tempProduct = fs.readFileSync(
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
 const dataObj = JSON.parse(data);
 
-const slugs = dataObj.map(el => slugify(el.productName, {lower: true}));
+const slugs = dataObj.map(el => slugify(el.productName, { lower: true }));
 
 const server = http.createServer((req, res) => {
   const { query, pathname } = url.parse(req.url, true);
-  
+
   // Overview page
   if (pathname === '/' || pathname === '/overview') {
     res.writeHead(200, { 'Content-type': 'text/html' });
@@ -69,7 +69,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-type': 'text/html' });
     const product = dataObj[query.id];
     const output = replaceTemplate(tempProduct, product);
-    
+
     res.end(output);
 
     // API
